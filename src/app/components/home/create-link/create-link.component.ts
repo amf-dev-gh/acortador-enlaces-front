@@ -1,8 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { urlValidator } from '../../validators/url-validator';
-import { ApiService } from '../../services/api.service';
-import { SpinnerComponent } from "../../utils/spinner/spinner.component";
+import { urlValidator } from '../../../validators/url-validator';
+import { ApiService } from '../../../services/api.service';
+import { SpinnerComponent } from "../../../utils/spinner/spinner.component";
 
 @Component({
   selector: 'app-create-link',
