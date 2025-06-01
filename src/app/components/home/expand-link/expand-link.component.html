@@ -1,1 +1,35 @@
-<p>expand-link works!</p>
+<div class="flex flex-col bg-off-white w-full p-4 rounded-xl">
+  <form (ngSubmit)="getUrl()" class="flex w-full gap-4" [formGroup]="getUrlForm">
+    <input class="w-full px-4 py-2 rounded-full border placeholder:text-gray-400 focus:outline-gray-400 text-accent"
+      type="text" name="id" formControlName="id" placeholder="Escribe aquí tu id" autocomplete="off">
+    <button type="submit"
+      class="text-nowrap py-1 px-2 bg-gradient-to-br from-primary to-secondary rounded-full min-w-40 text-accent hover:cursor-pointer hover:contrast-125 disabled:saturate-0 disabled:pointer-events-none"
+      [disabled]="getUrlForm.invalid">Obtener URL</button>
+  </form>
+  @if (getUrlForm.get('id')?.errors?.['pattern']) {
+  <span class="text-red-500 ms-4 text-sm">El ID debe contener solo caracteres alfanuméricos</span>
+  }
+  @if (getUrlForm.get('id')?.errors?.['maxlength']) {
+  <span class="text-red-500 ms-4 text-sm">El ID debe contener 6 caracteres</span>
+  }
+
+  @if (isloading || fetchedUrl !== '' || errorMessage !== '') {
+  <div class="flex flex-col text-accent items-center gap-4 p-4">
+    @if (isloading) {
+    <span class="size-15 text-secondary"><app-spinner /></span>
+    }
+
+    @if (fetchedUrl !== '') {
+    <i class="bi bi-check-circle text-green-700 text-6xl"></i>
+    <p class="text-center">URL obtenida:</p>
+    <a class="text-sky-600 underline" [href]="fetchedUrl" target="_blank">{{ fetchedUrl }}</a>
+    }
+
+    @if (errorMessage !== '') {
+    <i class="bi bi-x-circle text-red-700 text-6xl"></i>
+    <p class="text-center">Hubo un error al obtener la URL original: {{ errorMessage }}</p>
+    }
+  </div>
+  }
+
+</div>
