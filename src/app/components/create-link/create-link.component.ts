@@ -18,11 +18,26 @@ export class CreateLinkComponent {
 
   private apiService = inject(ApiService);
 
-  protected generatedId: string = '1a2b3c';
-  protected errorMessage: string = 'La URL ingresada ya existe en la base de datos';
+  protected isloading: boolean = false;
+  protected generatedId: string = '';
+  protected errorMessage: string = '';
 
   createId() {
-    console.log(this.createForm.get('url')?.value)
+    if (this.createForm.invalid || this.isloading) return;
+    this.isloading = true;
+    this.errorMessage = '';
+    this.generatedId = '';
+    const url = this.createForm.get('url')?.value;
+    this.apiService.createId(url).subscribe({
+      next: data => {
+        this.isloading = false;
+        this.generatedId = data.id;
+      },
+      error: () => {
+        this.isloading = false;
+        this.errorMessage = 'Error al generar el identificador';
+      }
+    })
   }
 
 }

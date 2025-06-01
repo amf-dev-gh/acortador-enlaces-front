@@ -1,27 +1,37 @@
   <div class="flex flex-col bg-off-white w-full p-4 rounded-xl">
     <form (ngSubmit)="createId()" class="flex w-full gap-4" [formGroup]="createForm">
       <input 
-      class="w-full px-4 py-2 rounded-full border placeholder:text-gray-400 focus:outline-gray-400" 
+      class="w-full px-4 py-2 rounded-full border placeholder:text-gray-400 focus:outline-gray-400 text-accent" 
       type="url" 
       name="url" 
       formControlName="url" 
-      placeholder="Escribe aquí tu enlace (ej: https://ejemplo.es/pagina-muy-larga)"
+      placeholder="Escribe aquí tu enlace... (ej: https://www.ejemplo-web.es/pagina-muy-larga)"
       autocomplete="off">
-      <button type="submit" class="text-nowrap py-1 px-2 bg-gradient-to-br from-primary to-secondary rounded-full min-w-40 text-accent hover:cursor-pointer hover:contrast-125">Acortar enlace</button>
+      <button 
+      type="submit" 
+      class="text-nowrap py-1 px-2 bg-gradient-to-br from-primary to-secondary rounded-full min-w-40 text-accent hover:cursor-pointer hover:contrast-125 disabled:saturate-0 disabled:pointer-events-none"
+      [disabled]="createForm.invalid">Acortar enlace</button>
     </form>
-    <span class="ms-4 text-sm">Formato de link incorrecto. Debe comenzar con http://... ó https://...</span>
-    <span class="ms-4 text-sm">Este campo es requerido</span>
+    @if (createForm.get('url')?.errors?.['invalidUrl']) {
+      <span class="text-red-500 ms-4 text-sm">Formato de link incorrecto. Debe comenzar con http://... ó https://...</span>
+    }
 
-    <div class="flex flex-col text-accent items-center gap-4 p-4">
-
-      <span class="size-15 text-secondary"><app-spinner /></span>
-
-      <i class="bi bi-check-circle text-green-700 text-6xl"></i>
-      <p class="ms-4">Se ha generado el enlace: <a class="text-sky-600 underline" [href]="'https://lnk-to.site/' + generatedId" target="_blank">lnk-to.site/{{ generatedId }}</a></p>
-
-      <i class="bi bi-x-circle text-red-700 text-6xl"></i>
-      <p class="ms-4">Hubo un error al generar el enlace: {{ errorMessage }}</p>
-
-    </div>
+    @if (isloading || generatedId !== '' || errorMessage !== '') {
+      <div class="flex flex-col text-accent items-center gap-4 p-4">
+        @if (isloading) {
+          <span class="size-15 text-secondary"><app-spinner /></span>
+        }
+        
+        @if (generatedId !== '') {
+          <i class="bi bi-check-circle text-green-700 text-6xl"></i>
+          <p class="ms-4">Se ha generado el enlace: <a class="text-sky-600 underline" [href]="'https://lnk-to.site/' + generatedId" target="_blank">lnk-to.site/{{ generatedId }}</a></p>
+        }
+        
+        @if (errorMessage !== '') {
+          <i class="bi bi-x-circle text-red-700 text-6xl"></i>
+          <p class="ms-4">Hubo un error al generar el enlace: {{ errorMessage }}</p>
+        }
+      </div>
+    }
 
   </div>
