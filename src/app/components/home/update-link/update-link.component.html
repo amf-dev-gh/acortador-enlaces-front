@@ -1,1 +1,49 @@
-<p>update-link works!</p>
+<div class="flex flex-col bg-off-white w-full p-4 rounded-xl">
+  <form (ngSubmit)="updateUrl()" class="flex w-full gap-4" [formGroup]="updateForm">
+
+    <div class="flex flex-col w-full">
+      <input class="w-full px-4 py-2 rounded-full border placeholder:text-gray-400 focus:outline-gray-400 text-accent"
+        type="text" name="id" formControlName="id" placeholder="Escribe aquí tu id" autocomplete="off">
+      @if (updateForm.get('id')?.errors?.['pattern']) {
+      <span class="text-red-500 ms-4 text-sm">El ID debe contener solo caracteres alfanuméricos</span>
+      }
+      @if (updateForm.get('id')?.errors?.['maxlength']) {
+      <span class="text-red-500 ms-4 text-sm">El ID debe contener 6 caracteres</span>
+      }
+
+      <input
+        class="mt-4 w-full px-4 py-2 rounded-full border placeholder:text-gray-400 focus:outline-gray-400 text-accent"
+        type="url" name="url" formControlName="url"
+        placeholder="Escribe aquí tu enlace... (ej: https://www.ejemplo-web.es/pagina-muy-larga)" autocomplete="off">
+      @if (updateForm.get('url')?.errors?.['invalidUrl']) {
+      <span class="text-red-500 ms-4 text-sm">Formato de link incorrecto. Debe comenzar con http://... ó
+        https://...</span>
+      }
+    </div>
+
+    <button type="submit"
+      class="m-auto text-nowrap py-2 px-4 bg-gradient-to-br from-primary to-secondary rounded-full min-w-40 text-accent hover:cursor-pointer hover:contrast-125 disabled:saturate-0 disabled:pointer-events-none"
+      [disabled]="updateForm.invalid">Actualizar URL</button>
+  </form>
+
+
+  @if (isloading || updatedUrl !== '' || errorMessage !== '') {
+  <div class="flex flex-col text-accent items-center gap-4 p-4">
+    @if (isloading) {
+    <span class="size-15 text-secondary"><app-spinner /></span>
+    }
+
+    @if (updatedUrl !== '') {
+    <i class="bi bi-check-circle text-green-700 text-6xl"></i>
+    <p class="text-center">URL actualizada correctamente:</p>
+    <a class="text-sky-600 underline" [href]="updatedUrl" target="_blank">{{ updatedUrl }}</a>
+    }
+
+    @if (errorMessage !== '') {
+    <i class="bi bi-x-circle text-red-700 text-6xl"></i>
+    <p class="text-center">Hubo un error al actualizar la URL: {{ errorMessage }}</p>
+    }
+  </div>
+  }
+
+</div>
