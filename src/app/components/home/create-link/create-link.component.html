@@ -24,12 +24,12 @@
         
         @if (generatedId !== '') {
           <i class="bi bi-check-circle text-green-700 text-6xl"></i>
-          <p class="ms-4">Se ha generado el enlace: <a class="text-sky-600 underline" [href]="'https://lnk-to.site/' + generatedId" target="_blank">lnk-to.site/{{ generatedId }}</a></p>
+          <p class="text-center">Se ha generado el enlace: <a class="text-sky-600 underline" [href]="'https://lnk-to.site/' + generatedId" target="_blank">lnk-to.site/{{ generatedId }}</a></p>
         }
         
         @if (errorMessage !== '') {
           <i class="bi bi-x-circle text-red-700 text-6xl"></i>
-          <p class="ms-4">Hubo un error al generar el enlace: {{ errorMessage }}</p>
+          <p class="text-center">Hubo un error al generar el enlace: {{ errorMessage }}</p>
         }
       </div>
     }
