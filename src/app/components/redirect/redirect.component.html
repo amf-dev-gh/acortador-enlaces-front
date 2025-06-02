@@ -1,1 +1,28 @@
-<p>redirect works!</p>
+@let id = linkId();
+@let hasError = notFoundError || serverError || invalidId;
+
+<section id="redirection" class="text-accent bg-off-white flex flex-col items-center mx-auto max-w-4xl rounded-xl px-4 py-10">
+
+  @if (hasError) {
+    <p class="text-3xl font-semibold mb-10">Ups! Algo ha ido mal... 😓</p>
+
+    @if (notFoundError) {
+    <p class="text-center">Parece que el identificador "<span class="font-semibold underline">{{id}}</span>" no existe en
+      la base de datos. <br> Porfavor verifícalo e intentalo nuevamente.</p>
+    }
+
+    @if (serverError) {
+    <p class="text-center">Parece tenemos problemas con nuestro servidor. Inténtalo nuevamente mas tarde. Lo sentimos!</p>
+    }
+
+    @if (invalidId) {
+    <p class="text-center">El identificador "<span class="font-semibold underline">{{id}}</span>" es inválido. Recuerda
+      que solo contiene 6 caracteres con numeros y letras. <br> Porfavor verifícalo e intentalo nuevamente.</p>
+    }
+  }
+  @else {
+    <p class="text-3xl font-semibold mb-10">✅ Se redireccionará a:</p>
+    <a class="text-sky-600 underline" [href]="fetchedUrl" target="_blank">{{fetchedUrl}}</a>
+  }
+
+</section>
