@@ -1,24 +1,24 @@
 <section id="home" class="flex flex-col items-center mx-auto max-w-4xl px-4">
-  <h1 class="text-5xl text-center font-semibold my-5">Acorta tus enlaces de forma rápida y sencilla</h1>
-  <p class="text-xl font-light mb-5 text-center">Convierte URLs largas en enlaces cortos y fáciles de compartir. Rápido, seguro y sin tarjetas.</p>
+  <h1 class="text-4xl sm:text-5xl text-center font-semibold my-5">Acorta tus enlaces de forma rápida y sencilla</h1>
+  <p class="text-lg sm:text-xl font-light mb-5 text-center">Convierte URLs largas en enlaces cortos y fáciles de compartir. Rápido, seguro y sin tarjetas.</p>
 
-  <div class="flex justify-center items-center w-full mb-10 gap-10">
+  <div class="flex flex-row justify-center items-center w-full mb-4 sm:mb-10 gap-4 sm:gap-10">
 
     <button 
     (click)="changeForm('create')" type="button" 
-    class="py-2 px-4 border bg-gradient-to-br from-accent to-accent hover:from-primary hover:to-secondary rounded-full min-w-40 hover:text-accent hover:cursor-pointer transition-all"
+    class="text-sm sm:text-base min-w-25 sm:min-w-40 py-2 px-4 border bg-gradient-to-br from-accent to-accent hover:from-primary hover:to-secondary rounded-full hover:text-accent hover:cursor-pointer transition-all"
     [ngClass]="showform === 'create' ? 'from-primary to-secondary text-accent hover:contrast-125':'text-primary'"
     >Crea</button>
 
     <button 
     (click)="changeForm('expand')" type="button" 
-    class="py-2 px-4 border bg-gradient-to-br from-accent to-accent hover:from-primary hover:to-secondary rounded-full min-w-40 hover:text-accent hover:cursor-pointer transition-all"
+    class="text-nowrap text-sm sm:text-base py-2 px-4 border bg-gradient-to-br from-accent to-accent hover:from-primary hover:to-secondary rounded-full min-w-25 sm:min-w-40 hover:text-accent hover:cursor-pointer transition-all"
     [ngClass]="showform === 'expand' ? 'from-primary to-secondary text-accent hover:contrast-125':'text-primary'"
     >Obtén URL</button>
 
     <button 
     (click)="changeForm('update')" type="button" 
-    class="py-2 px-4 border bg-gradient-to-br from-accent to-accent hover:from-primary hover:to-secondary rounded-full min-w-40 hover:text-accent hover:cursor-pointer transition-all"
+    class="text-sm sm:text-base py-2 px-4 border bg-gradient-to-br from-accent to-accent hover:from-primary hover:to-secondary rounded-full min-w-25 sm:min-w-40 hover:text-accent hover:cursor-pointer transition-all"
     [ngClass]="showform === 'update' ? 'from-primary to-secondary text-accent hover:contrast-125':'text-primary'"
     >Actualiza</button>
 
