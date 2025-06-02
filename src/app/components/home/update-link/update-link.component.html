@@ -1,17 +1,19 @@
+@let hasResponse = isloading || updatedUrl !== '' || errorMessage !== '';
+
 <div class="flex flex-col bg-off-white w-full p-4 rounded-xl">
 
   <p class="mb-4 mx-4 text-accent text-sm">ℹ️ Ingresa los últimos 6 digitos de tu link previamente generado en el primer campo, luego ingresa la nueva URL que quieres asociar en el segundo campo, dale click a "Actualizar URL" y habrás asociado la nueva URL a tu link acortado.</p>
 
-  <form (ngSubmit)="updateUrl()" class="flex w-full gap-4" [formGroup]="updateForm">
+  <form (ngSubmit)="updateUrl()" class="flex w-full gap-4 flex-col sm:flex-row sm:items-start items-center" [formGroup]="updateForm">
 
     <div class="flex flex-col w-full">
       <input class="w-full px-4 py-2 rounded-full border placeholder:text-gray-400 focus:outline-gray-400 text-accent"
         type="text" name="id" formControlName="id" placeholder="Escribe aquí tu id" autocomplete="off">
       @if (updateForm.get('id')?.errors?.['pattern']) {
-      <span class="text-red-500 ms-4 text-sm">El ID debe contener solo caracteres alfanuméricos</span>
+      <span class="text-red-500 mx-4 text-xs sm:text-sm">El ID debe contener solo caracteres alfanuméricos</span>
       }
       @if (updateForm.get('id')?.errors?.['maxlength']) {
-      <span class="text-red-500 ms-4 text-sm">El ID debe contener 6 caracteres</span>
+      <span class="text-red-500 mx-4 text-xs sm:text-sm">El ID debe contener 6 caracteres</span>
       }
 
       <input
@@ -19,18 +21,18 @@
         type="url" name="url" formControlName="url"
         placeholder="Escribe aquí tu enlace... (ej: https://www.ejemplo-web.es/pagina-muy-larga)" autocomplete="off">
       @if (updateForm.get('url')?.errors?.['invalidUrl']) {
-      <span class="text-red-500 ms-4 text-sm">Formato de link incorrecto. Debe comenzar con http://... ó
+      <span class="text-red-500 mx-4 text-xs sm:text-sm">Formato de link incorrecto. Debe comenzar con http://... ó
         https://...</span>
       }
     </div>
 
     <button type="submit"
-      class="m-auto text-nowrap py-2 px-4 bg-gradient-to-br from-primary to-secondary rounded-full min-w-40 text-accent hover:cursor-pointer hover:contrast-125 disabled:saturate-0 disabled:pointer-events-none"
+      class="text-sm sm:text-base min-w-25 sm:min-w-40 text-nowrap py-2 px-4 bg-gradient-to-br from-primary to-secondary rounded-full text-accent hover:cursor-pointer hover:contrast-125 disabled:saturate-0 disabled:pointer-events-none"
       [disabled]="updateForm.invalid">Actualizar URL</button>
   </form>
 
 
-  @if (isloading || updatedUrl !== '' || errorMessage !== '') {
+  @if (hasResponse) {
   <div class="flex flex-col text-accent items-center gap-4 p-4">
     @if (isloading) {
     <span class="size-15 text-secondary"><app-spinner /></span>
@@ -39,7 +41,7 @@
     @if (updatedUrl !== '') {
     <i class="bi bi-check-circle text-green-700 text-6xl"></i>
     <p class="text-center">URL actualizada correctamente:</p>
-    <a class="text-sky-600 underline" [href]="updatedUrl" target="_blank">{{ updatedUrl }}</a>
+    <a class="text-sky-600 underline text-center" [href]="updatedUrl" target="_blank">{{ updatedUrl }}</a>
     }
 
     @if (errorMessage !== '') {
