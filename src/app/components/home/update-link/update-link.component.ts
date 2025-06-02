@@ -38,7 +38,6 @@ export class UpdateLinkComponent {
       },
       error: error => {
         this.isloading = false;
-        console.error(error.status === 404)
 
         if (error.status === 404) {
           this.errorMessage = `No existe el ID: ${id}`;
