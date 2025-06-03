@@ -27,8 +27,6 @@ Esta aplicación se conecta a un backend en Node.js + Express.
 
 ## Instalación
 ```bash
-Copiar
-Editar
 git clone https://github.com/amf-dev-gh/acortador-enlaces-front.git
 cd nombre-frontend
 npm install
